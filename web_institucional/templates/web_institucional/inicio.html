@@ -1,0 +1,216 @@
+{% extends 'web_institucional/base.html' %}
+
+{% block title %}Inicio - Consejo Superior de Corrientes{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+
+    <!-- SECCIÓN: ALERTA EMERGENTE DINÁMICA (Estilo Buenos Aires) -->
+    {% if alerta_activa %}
+    <div class="modal fade show d-block" id="modalAlerta" tabindex="-1" role="dialog" aria-labelledby="alertaTitle" aria-hidden="true" style="background: rgba(11, 25, 44, 0.85); backdrop-filter: blur(5px);">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-dark border border-warning shadow-lg text-white">
+                <!-- Encabezado del Pop-up -->
+                <div class="modal-header border-bottom border-warning bg-opacity-25" style="background-color: #0d213a;">
+                    <h5 class="modal-title font-serif-formal text-warning text-uppercase" id="alertaTitle">⚠️ COMUNICADO URGENTE</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="document.getElementById('modalAlerta').classList.remove('d-block'); document.getElementById('modalAlerta').classList.add('d-none');"></button>
+                </div>
+                <!-- Cuerpo del Pop-up -->
+                <div class="modal-content-body p-4">
+                    <h3 class="h5 font-serif-formal mb-3 text-white">{{ alerta_activa.titulo }}</h3>
+                    <p class="text-light" style="font-size: 0.95rem; line-height: 1.6;">{{ alerta_activa.contenido }}</p>
+                    
+                    {% if alerta_activa.imagen %}
+                    <img src="{{ alerta_activa.imagen.url }}" class="img-fluid rounded border border-warning mt-2 mb-3" alt="Gráfico de Alerta">
+                    {% endif %}
+                </div>
+                <!-- Pie del Pop-up con Botón de Cerrar -->
+                <div class="modal-footer border-top border-warning p-2 bg-opacity-10" style="background-color: #0d213a;">
+                    <button type="button" class="btn btn-dorado btn-sm px-4" data-bs-dismiss="modal" onclick="document.getElementById('modalAlerta').classList.remove('d-block'); document.getElementById('modalAlerta').classList.add('d-none');">Cerrar Aviso</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+
+    <!-- Slider Dinámico Animado (Carrusel de Fotos) -->
+    <div id="carruselInstitucional" class="carousel slide carousel-fade border border-warning rounded shadow" data-bs-ride="carousel" data-bs-interval="4000">
+        <!-- Indicadores (Puntitos de abajo) -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carruselInstitucional" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carruselInstitucional" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carruselInstitucional" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+
+        <!-- Imágenes del Carrusel -->
+        <div class="carousel-inner">
+            <!-- Foto 1 (Principal - Presidencia) -->
+            <div class="carousel-item active" style="height: 150px; background: #07101c;">
+                <svg class="bd-placeholder-img w-100 h-100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <rect width="100%" height="100%" fill="#0d213a"/>
+                    <text x="50%" y="50%" fill="#D4AF37" dy=".3em" text-anchor="middle" font-family="Cinzel" font-size="24px">Presidencia Dra. Verónica Vergéz Echegaray</text>
+                </svg>
+            </div>
+
+            <!-- Foto 2 (Reunión de Consejo Superior) -->
+            <div class="carousel-item" style="height: 150px; background: #07101c;">
+                <svg class="bd-placeholder-img w-100 h-100" xmlns="http://www.w3.org/2000/svg"" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <rect width="100%" height="100%" fill="#122a47"/>
+                    <text x="50%" y="50%" fill="#F5F7F8" dy=".3em" text-anchor="middle" font-family="Montserrat" font-size="20px">Sesión Plenaria de las 5 Circunscripciones Judiciales</text>
+                </svg>
+            </div>
+
+            <!-- Foto 3 (Convenios y Resoluciones) -->
+            <div class="carousel-item" style="height: 150px; background: #07101c;">
+                <svg class="bd-placeholder-img w-100 h-100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <rect width="100%" height="100%" fill="#0d213a"/>
+                    <text x="50%" y="50%" fill="#D4AF37" dy=".3em" text-anchor="middle" font-family="Montserrat" font-size="20px">Institucional - Gestión 2025 / 2027</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Botones de Flechas (Izquierda y Derecha) -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carruselInstitucional" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carruselInstitucional" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+
+    
+    </div> <!-- Cierre del carrusel -->
+
+    <!-- SECCIÓN: BOTONERA DE CIRCUNSCRIPCIONES UNIFICADA (PREMIUM) -->
+    <div class="my-5 text-center">
+        <h2 class="h4 mb-4 text-white text-uppercase tracking-wider font-serif-formal" style="letter-spacing: 2px;">Colegios por Circunscripción</h2>
+        
+        <!-- Grilla de botones: se acomodan solos en compu y celular con simetría total -->
+        <div class="row g-4 justify-content-center px-2">
+            
+            <!-- 1ra Circunscripción - Capital -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                <div class="p-3 border border-warning rounded bg-dark bg-opacity-25 h-100 text-center d-flex flex-column justify-content-between shadow-sm">
+                    <div>
+                        <span class="font-serif-formal d-block text-warning" style="font-size: 1.2rem;">I</span>
+                        <small class="d-block mb-3 text-white opacity-75" style="font-size: 0.75rem; letter-spacing: 0.5px;">CAPITAL</small>
+                    </div>
+                    <div>
+                        <a href="https://cpapc.org.ar" target="_blank" class="btn btn-dorado btn-sm w-100 py-3 text-decoration-none d-flex flex-column align-items-center justify-content-center">
+                            <span style="font-size: 0.85rem; letter-spacing: 0.5px; font-weight: 600;">🌐 WEB OFICIAL</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2da Circunscripción - Goya -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                <div class="p-3 border border-warning rounded bg-dark bg-opacity-25 h-100 text-center d-flex flex-column justify-content-between shadow-sm">
+                    <div>
+                        <span class="font-serif-formal d-block text-warning" style="font-size: 1.2rem;">II</span>
+                        <small class="d-block mb-3 text-white opacity-75" style="font-size: 0.75rem; letter-spacing: 0.5px;">GOYA</small>
+                    </div>
+                    <div>
+                        <a href="https://cpasc.com.ar" target="_blank" class="btn btn-dorado btn-sm w-100 py-3 text-decoration-none d-flex flex-column align-items-center justify-content-center">
+                            <span style="font-size: 0.85rem; letter-spacing: 0.5px; font-weight: 600;">🌐 WEB OFICIAL</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3ra Circunscripción - Curuzú Cuatiá -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                <div class="p-3 border border-warning rounded bg-dark bg-opacity-25 h-100 text-center d-flex flex-column justify-content-between shadow-sm">
+                    <div>
+                        <span class="font-serif-formal d-block text-warning" style="font-size: 1.2rem;">III</span>
+                        <small class="d-block mb-3 text-white opacity-75" style="font-size: 0.75rem; letter-spacing: 0.5px;">CURUZÚ CUATIÁ</small>
+                    </div>
+                    <div>
+                        <a href="http://cpatcj.com.ar" target="_blank" class="btn btn-dorado btn-sm w-100 py-3 text-decoration-none d-flex flex-column align-items-center justify-content-center">
+                            <span style="font-size: 0.85rem; letter-spacing: 0.5px; font-weight: 600;">🌐 WEB OFICIAL</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4ta Circunscripción - Paso de los Libres -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                <div class="p-3 border border-warning rounded bg-dark bg-opacity-25 h-100 text-center d-flex flex-column justify-content-between shadow-sm">
+                    <div>
+                        <span class="font-serif-formal d-block text-warning" style="font-size: 1.2rem;">IV</span>
+                        <small class="d-block mb-3 text-white opacity-75" style="font-size: 0.75rem; letter-spacing: 0.5px;">P. DE LOS LIBRES</small>
+                    </div>
+                    <div>
+                        <a href="https://facebook.com" target="_blank" class="btn btn-dorado btn-sm w-100 py-3 text-decoration-none d-flex flex-column align-items-center justify-content-center">
+                            <span style="font-size: 0.85rem; letter-spacing: 0.5px; font-weight: 600;">🔵 FB OFICIAL</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5ta Circunscripción - Santo Tomé -->
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                <div class="p-3 border border-warning rounded bg-dark bg-opacity-25 h-100 text-center d-flex flex-column justify-content-between shadow-sm">
+                    <div>
+                        <span class="font-serif-formal d-block text-warning" style="font-size: 1.2rem;">V</span>
+                        <small class="d-block mb-3 text-white opacity-75" style="font-size: 0.75rem; letter-spacing: 0.5px;">SANTO TOMÉ</small>
+                    </div>
+                    <div>
+                        <a href="https://instagram.com" target="_blank" class="btn btn-dorado btn-sm w-100 py-3 text-decoration-none d-flex flex-column align-items-center justify-content-center">
+                            <span style="font-size: 0.85rem; letter-spacing: 0.5px; font-weight: 600;">📸 IG OFICIAL</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- Cierre de la hilera de botones -->
+    </div> <!-- Cierre de la sección de circunscripciones -->
+
+
+    <!-- SECCIÓN: ÚLTIMAS NOTICIAS Y CIRCULARES DINEÁMICAS -->
+    <div class="my-5">
+        <hr class="border-warning my-5 opacity-25">
+        <h2 class="h4 mb-4 text-center text-uppercase tracking-wider">Últimas Noticias y Circulares</h2>
+        
+        <div class="row g-4 justify-content-center">
+            {% for noticia in noticias %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 bg-dark bg-opacity-25 border border-warning shadow-sm transition-all">
+                    <!-- Si la noticia tiene foto, la muestra. Si no, pone un fondo azul plano -->
+                    {% if noticia.foto_principal %}
+                    <img src="{{ noticia.foto_principal.url }}" class="card-img-top border-bottom border-warning" alt="{{ noticia.titulo }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="d-flex align-items-center justify-content-center bg-opacity-50 border-bottom border-warning" style="height: 200px; background-color: #0d213a;">
+                        <span class="font-serif-formal text-muted" style="font-size: 3rem;">CSCA</span>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Cuerpo de la Tarjeta -->
+                    <div class="card-body d-flex flex-column">
+                        <small class="text-warning mb-2" style="font-size: 0.8rem;">
+                            {{ noticia.fecha_publicacion|date:"d \d\e F, Y" }}
+                        </small>
+                        <h3 class="h5 card-title mb-3 font-serif-formal text-white">{{ noticia.titulo }}</h3>
+                        <p class="card-text text-light flex-grow-1" style="font-size: 0.9rem; line-height: 1.5;">
+                            {{ noticia.contenido|truncatewords:20 }}
+                        </p>
+                        <a href="{% url 'detalle_noticia' noticia.id %}" class="btn btn-dorado btn-sm mt-3 w-100">Leer Circular Completa</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Mensaje por si borrás todas las noticias del panel -->
+            <div class="col-12 text-center">
+                <p class="text-muted italic">No hay circulares o noticias publicadas por el momento.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div> <!-- Cierre definitivo del container maestro -->
+{% endblock %}
+
+

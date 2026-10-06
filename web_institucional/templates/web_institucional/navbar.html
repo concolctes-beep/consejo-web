@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg border-bottom border-warning" style="background-color: #07101c; z-index: 1030;">
+    <div class="container py-1">
+        <!-- Monograma y Nombre Institucional -->
+        <a class="navbar-brand text-decoration-none d-flex align-items-center" href="/">
+            <span class="font-serif-formal fw-bold tracking-wider" style="color: #D4AF37; font-size: 1.35rem; border-right: 2px solid #D4AF37; padding-right: 12px;">CSCA</span>
+            <span class="text-white ps-2 font-serif-formal opacity-90 text-uppercase d-none d-sm-inline" style="font-size: 0.75rem; letter-spacing: 1px; line-height: 1.2;">Consejo Superior<br>de Colegios de Abogados</span>
+        </a>
+
+        <!-- Botón para Celulares (Responsive) -->
+        <button class="navbar-toggler border-warning text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPrincipal" aria-controls="navbarPrincipal" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="filter: invert(70%) sepia(50%) saturate(1000%) hue-rotate(10deg);"></span>
+        </button>
+
+        <!-- Enlaces del Menú -->
+        <div class="collapse navbar-collapse" id="navbarPrincipal">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 font-serif-formal" style="font-size: 0.95rem; letter-spacing: 0.5px;">
+                
+                <!-- Botón Inicio -->
+                <li class="nav-item">
+                    <a class="nav-link text-white px-3" href="/">Inicio</a>
+                </li>
+
+                <!-- Nuevo Submenú Desplegable: El Consejo -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        El Consejo
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark border-warning bg-opacity-95" style="background-color: #07101c; z-index: 1040;">
+                        <li><a class="dropdown-item text-warning fw-bold" href="{% url 'autoridades' %}">🏛️ Autoridades</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'mision_funcion' %}">📜 Misión y Función</a></li>
+                        <li><a class="dropdown-item text-white" href="https://www.facebook.com/people/Tribunal-de-Disciplina-Ctes/100078916214886/" target="_blank">⚖️ Tribunal de Disciplina</a></li>
+
+                        <li><hr class="dropdown-divider border-secondary"></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'reglamentos' %}">📁 Estatuto y Reglamentos</a></li>
+
+                    </ul>
+                </li>
+
+                <!-- Botón Biblioteca -->
+                <!-- Botón Biblioteca (Conectado a tus PDF) -->
+                <li class="nav-item">
+                    <a class="nav-link text-white px-3" href="{% url 'reglamentos' %}">Biblioteca</a>
+                </li>
+
+                <!-- Botón Portal del Matriculado (Desplegable de Trámites) -->
+                <li class="nav-item dropdown ms-lg-2 mt-2 mt-lg-0">
+                    <a class="btn btn-dorado btn-sm px-3 py-2 text-decoration-none fw-bold dropdown-toggle" href="#" id="navbarDropdownMatricula" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        👤 Portal del Matriculado
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end bg-dark border border-warning shadow-lg" aria-labelledby="navbarDropdownMatricula" style="background-color: #0b192c !important;">
+                        <li>
+                            <a class="dropdown-item text-white py-2 font-serif-formal" href="https://juscorrientes.gov.ar" target="_blank" style="font-size: 0.9rem;">
+                                🔍 Consulta de Matrícula Unificada
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider border-warning opacity-25">
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-white py-2 font-serif-formal" href="{% url 'reglamentos' %}" style="font-size: 0.9rem;">
+                                📋 Requisitos de Inscripción Provincial
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

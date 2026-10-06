@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Consejo Superior de Colegios de Abogados de Corrientes{% endblock %}</title>
+    
+    <!-- Bootstrap 5 (Librería Responsive para celulares) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    
+    <!-- Google Fonts (Tipografía formal y elegante) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+
+    <!-- Estilos base personalizados en Azul Marino y Oro -->
+    <style>
+        :root {
+            --azul-profundo: #0B192C; /* Azul de alta gama */
+            --oro-intenso: #D4AF37;   /* Dorado oro brillante */
+            --blanco-suave: #F5F7F8;  /* Blanco lectura para no cansar la vista */
+        }
+
+        body {
+            background-color: var(--azul-profundo);
+            color: var(--blanco-suave);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1, h2, h3, .font-serif-formal {
+            font-family: 'Cinzel', serif;
+            color: var(--oro-intenso);
+            font-weight: 700;
+        }
+
+        .borde-dorado {
+            border: 1px solid var(--oro-intenso);
+        }
+
+        .btn-dorado {
+            background-color: transparent;
+            color: var(--oro-intenso);
+            border: 2px solid var(--oro-intenso);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-dorado:hover {
+            background-color: var(--oro-intenso);
+            color: var(--azul-profundo);
+            box-shadow: 0 0 10px var(--oro-intenso);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Acá se va a "enchar" el Menú de arriba (Navbar) más adelante -->
+    {% include 'web_institucional/navbar.html' %}
+
+    <!-- Contenido Dinámico de cada pantalla -->
+    <main class="py-4">
+        {% block content %}
+        {% endblock %}
+    
+
+    </main>
+
+    <!-- Acá se acopla el Pie de Página (Footer) -->
+    {% include 'web_institucional/footer.html' %}
+    
+
+    <!-- JS de Bootstrap para que funcionen los botones en los celulares y el Pop-up -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends 'web_institucional/base.html' %}
+
+{% block title %}Misión y Función - Consejo Superior{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    
+    <!-- Título de la Sección -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 font-serif-formal text-white mb-2">Misión y Función</h1>
+        <p class="text-warning text-uppercase tracking-wider" style="font-size: 0.9rem; letter-spacing: 2px;">Marco Institucional y Normativo del Consejo Superior</p>
+        <div class="mx-auto border-bottom border-warning opacity-50" style="width: 80px; border-width: 2px !important;"></div>
+    </div>
+
+    <!-- Bloque de Contenido Dinámico -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9">
+            <div class="p-4 p-md-5 border border-warning rounded bg-dark bg-opacity-25 shadow text-white">
+                
+                {% for item in textos %}
+                <div class="mb-4">
+                    <h2 class="h4 font-serif-formal text-warning mb-3">🏛️ {{ item.titulo }}</h2>
+                    <!-- El filtro linebreaks le respeta los puntos y aparte que escribas en el admin -->
+                    <div style="font-size: 1.05rem; line-height: 1.7; text-align: justify;" class="opacity-90">
+                        {{ item.contenido|linebreaks }}
+                    </div>
+                    <hr class="border-secondary my-4 opacity-25">
+                </div>
+                {% empty %}
+                <div class="text-center py-5 text-muted italic" style="font-size: 0.95rem;">
+                    Redactando los objetivos institucionales desde la Sede Central...
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón Volver -->
+    <div class="text-center mt-5">
+        <a href="/" class="btn btn-outline-warning btn-sm px-4 py-2 font-serif-formal text-decoration-none">
+            &larr; Volver al Inicio
+        </a>
+    </div>
+
+</div>
+{% endblock %}

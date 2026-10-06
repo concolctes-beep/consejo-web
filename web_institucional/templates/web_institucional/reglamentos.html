@@ -1,0 +1,68 @@
+{% extends 'web_institucional/base.html' %}
+
+{% block title %}Estatuto y Reglamentos - Consejo Superior{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    
+    <!-- Título de la Sección -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 font-serif-formal text-white mb-2">Estatuto y Reglamentos</h1>
+        <p class="text-warning text-uppercase tracking-wider" style="font-size: 0.9rem; letter-spacing: 2px;">Biblioteca de Normativas Oficiales del Consejo Superior</p>
+        <div class="mx-auto border-bottom border-warning opacity-50" style="width: 80px; border-width: 2px !important;"></div>
+    </div>
+
+    <!-- Lista de Descargas Premium -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9">
+            <div class="p-4 border border-warning rounded bg-dark bg-opacity-25 shadow">
+                
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover align-middle mb-0 text-white">
+                        <thead>
+                            <tr class="text-warning font-serif-formal" style="border-bottom: 2px solid #D4AF37;">
+                                <th scope="col" class="py-3" style="font-size: 1rem;">Documento Oficial / Reglamento</th>
+                                <th scope="col" class="py-3 text-center" style="font-size: 1rem; width: 180px;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for doc in reglamentos %}
+                            <tr style="border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+                                <td class="py-3">
+                                    <div class="fw-bold" style="font-size: 1.05rem;">📄 {{ doc.titulo }}</div>
+                                    <small class="text-muted" style="font-size: 0.8rem;">Publicado el: {{ doc.fecha_subida|date:"d/m/Y" }}</small>
+                                </td>
+                                <td class="py-3 text-center">
+                                    {% if doc.archivo_pdf %}
+                                    <a href="{{ doc.archivo_pdf.url }}" target="_blank" class="btn btn-dorado btn-sm px-3 py-2 fw-bold font-serif-formal w-100">
+                                        📥 Descargar PDF
+                                    </a>
+                                    {% else %}
+                                    <span class="text-muted small italic">Archivo no disponible</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="2" class="text-center py-5 text-muted italic" style="font-size: 0.95rem;">
+                                    No hay reglamentos o estatutos cargados oficialmente en este momento...
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón Volver -->
+    <div class="text-center mt-5">
+        <a href="/" class="btn btn-outline-warning btn-sm px-4 py-2 font-serif-formal text-decoration-none">
+            &larr; Volver al Inicio
+        </a>
+    </div>
+
+</div>
+{% endblock %}

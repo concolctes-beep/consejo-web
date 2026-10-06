@@ -1,0 +1,46 @@
+{% extends 'web_institucional/base.html' %}
+
+{% block title %}{{ noticia.titulo }} - Consejo Superior{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            
+            <!-- Botón Volver Atrás en Dorado -->
+            <a href="/" class="btn btn-dorado btn-sm mb-4 px-3">
+                &larr; Volver al Inicio
+            </a>
+
+            <!-- Tarjeta Contenedora Premium -->
+            <div class="p-4 p-md-5 border border-warning rounded bg-dark bg-opacity-25 shadow">
+                
+                <!-- Fecha Formal de Publicación -->
+                <small class="text-warning d-block mb-2 text-uppercase tracking-wider" style="font-size: 0.85rem;">
+                    📅 Publicado el {{ noticia.fecha_publicacion|date:"d \d\e F, Y" }}
+                </small>
+
+                <!-- Título de la Circular en Fuente Serif Formal -->
+                <h1 class="display-5 font-serif-formal mb-4 text-white border-bottom border-warning pb-3" style="line-height: 1.3;">
+                    {{ noticia.titulo }}
+                </h1>
+
+                <!-- Imagen Destacada (Si el abogado cargó una en el panel) -->
+                {% if noticia.foto_principal %}
+                <div class="mb-4 text-center">
+                    <img src="{{ noticia.foto_principal.url }}" class="img-fluid w-100 rounded border border-warning shadow-sm" alt="{{ noticia.titulo }}" style="max-height: 450px; object-fit: cover;">
+
+                </div>
+                {% endif %}
+
+                <!-- Cuerpo o Contenido de la Resolución Completa -->
+                <div class="text-light" style="font-size: 1.05rem; line-height: 1.8; text-align: justify; letter-spacing: 0.3px;">
+                    {{ noticia.contenido|linebreaks }}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

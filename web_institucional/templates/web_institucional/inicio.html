@@ -1,3 +1,20 @@
+<style>
+  /* Ajuste quirúrgico para que el carrusel se lea entero en el celular */
+  @media (max-width: 768px) {
+    .carousel-item h1, .carousel-caption h1, .carousel-item h2, .carousel-caption h2 {
+      font-size: 1.2rem !important;
+      white-space: normal !important;
+      word-wrap: break-word !important;
+    }
+    .carousel-caption {
+      padding-bottom: 5px !important;
+      left: 5% !important;
+      right: 5% !important;
+    }
+  }
+</style>
+
+
 {% extends 'web_institucional/base.html' %}
 
 {% block title %}Inicio - Consejo Superior de Corrientes{% endblock %}

@@ -65,3 +65,46 @@ def mision_funcion_view(request):
     textos_institucionales = Institucional.objects.all()
     return render(request, 'web_institucional/mision_funcion.html', {'textos': textos_institucionales})
 
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import AbogadoMatriculado
+
+def registro_observatorio_oculto(request):
+    """
+    Formulario de registro autónomo para el Observatorio (Modo Invisible para Abib System)
+    """
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre_completo')
+        matricula = request.POST.get('matricula')
+        circunscripcion = request.POST.get('circunscripcion')
+        correo = request.POST.get('correo_electronico')
+        
+        # Validación de seguridad: controlar que no exista la matrícula o el mail
+        if AbogadoMatriculado.objects.filter(matricula=matricula).exists():
+            messages.error(request, "Esta matrícula ya se encuentra registrada en el Observatorio.")
+            return redirect('registro_observatorio_oculto')
+            
+        if AbogadoMatriculado.objects.filter(correo_electronico=correo).exists():
+            messages.error(request, "Este correo electrónico ya está registrado.")
+            return redirect('registro_observatorio_oculto')
+            
+        # Guardar en la base de datos (Entra como Falso/Inactivo hasta validar el mail)
+        nuevo_abogado = AbogadoMatriculado.objects.create(
+            nombre_completo=nombre,
+            matricula=matricula,
+            circunscripcion=circunscripcion,
+            correo_electronico=correo,
+            esta_validado=False
+        )
+        
+        # Mensaje de éxito provisorio en pantalla
+        messages.success(request, f"¡Registro recibido con éxito, Dr/Dra. {nombre}! Se ha enviado un token de validación a su correo.")
+        return redirect('registro_observatorio_oculto')
+
+    # Si entra por GET, renderiza la pantalla limpia. 
+    # Le pasamos las circunscripciones para armar el menú desplegable automático
+    circunscripciones = AbogadoMatriculado.CIRCUNSCRIPCIONES
+    return render(request, 'web_institucional/observatorio_registro.html', {
+        'circunscripciones': circunscripciones
+    })

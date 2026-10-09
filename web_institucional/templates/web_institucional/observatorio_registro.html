@@ -1,0 +1,97 @@
+{% extends 'web_institucional/base.html' %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            
+            <!-- SECCIÓN COMPARTIR (Estilo Corrientes Hoy) -->
+            <div class="d-flex align-items-center justify-content-between bg-light p-3 rounded mb-4 border-start border-warning shadow-sm">
+                <span class="small fw-bold text-muted text-uppercase" style="letter-spacing: 0.5px;">扩散 / Compartir Observatorio:</span>
+                <div class="d-flex gap-2">
+                    <!-- Botón WhatsApp -->
+                    <a href="https://whatsapp.com" 
+                       target="_blank" class="btn btn-success btn-sm d-flex align-items-center gap-1 shadow-sm px-3" style="background-color: #25D366; border: none; font-size: 0.8rem;">
+                        <i class="bi bi-whatsapp"></i> WhatsApp
+                    </a>
+                    <!-- Botón Telegram -->
+                    <a href="https://t.me." 
+                       target="_blank" class="btn btn-primary btn-sm d-flex align-items-center gap-1 shadow-sm px-3" style="background-color: #0088cc; border: none; font-size: 0.8rem;">
+                        <i class="bi bi-telegram"></i> Telegram
+                    </a>
+                </div>
+            </div>
+
+            <!-- TARJETA DEL FORMULARIO -->
+            <div class="card shadow-lg border-0" style="background-color: #07101c; border-top: 4px solid #D4AF37 !important;">
+                <div class="card-body p-4 p-md-5">
+                    
+                    <div class="text-center mb-4">
+                        <h3 class="font-serif-formal fw-bold text-uppercase" style="color: #D4AF37; letter-spacing: 1px; font-size: 1.4rem;">Observatorio de la Justicia</h3>
+                        <p class="text-white opacity-75 small">Formulario de Alta para Profesionales Matriculados</p>
+                    </div>
+
+                    <!-- ALERTA DE SEGURIDAD Y ANONIMATO BLINDADO -->
+                    <div class="alert text-white border-0 mb-4 p-3 d-flex gap-2" style="background-color: rgba(212, 175, 55, 0.1); border-left: 4px solid #D4AF37 !important;">
+                        <i class="bi bi-shield-lock-fill text-warning fs-4"></i>
+                        <div class="small">
+                            <strong class="text-warning d-block mb-1">Garantía de Anonimato Total:</strong>
+                            Este registro sirve exclusivamente para validar que usted es un profesional activo en la provincia de Corrientes. Su identidad jamás se cruzará con las respuestas de las encuestas semestrales. Su voto es secreto y blindado.
+                        </div>
+                    </div>
+
+                    <!-- Mensajes de Alerta de Django -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} text-center py-2 small mb-4" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- FORMULARIO LIMPIO -->
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        
+                        <!-- Campo 1: Nombre -->
+                        <div class="mb-3">
+                            <label class="form-label text-white small opacity-75">Nombre y Apellido Completo</label>
+                            <input type="text" name="nombre_completo" class="form-control bg-transparent text-white border-secondary" required style="font-size: 0.9rem;" placeholder="Dr. / Dra...">
+                        </div>
+
+                        <!-- Campo 2: Matrícula -->
+                        <div class="mb-3">
+                            <label class="form-label text-white small opacity-75">Número de Matrícula (Tomo / Folio)</label>
+                            <input type="text" name="matricula" class="form-control bg-transparent text-white border-secondary" required style="font-size: 0.9rem;" placeholder="Ej: Tomo II - Folio 45">
+                        </div>
+
+                        <!-- Campo 3: Circunscripción -->
+                        <div class="mb-3">
+                            <label class="form-label text-white small opacity-75">Circunscripción Judicial (Corrientes)</label>
+                            <select name="circunscripcion" class="form-select bg-dark text-white border-secondary" required style="font-size: 0.9rem;">
+                                <option value="" disabled selected>Seleccione su circunscripción...</option>
+                                {% for key, value in circunscripciones %}
+                                    <option value="{{ key }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Campo 4: Correo Electrónico -->
+                        <div class="mb-4">
+                            <label class="form-label text-white small opacity-75">Correo Electrónico de Validación</label>
+                            <input type="email" name="correo_electronico" class="form-control bg-transparent text-white border-secondary" required style="font-size: 0.9rem;" placeholder="abogado@ejemplo.com">
+                            <div class="form-text text-muted" style="font-size: 0.75rem;">Se le enviará un link seguro para activar su usuario del Observatorio.</div>
+                        </div>
+
+                        <!-- Botón de Envío -->
+                        <button type="submit" class="btn fw-bold w-100 py-2 mt-2 shadow" style="background-color: #D4AF37; color: #07101c; font-size: 0.95rem; border: none;">
+                            <i class="bi bi-envelope-check-fill me-1"></i> Registrarme y Validar Cuenta
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

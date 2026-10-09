@@ -88,3 +88,59 @@ class Institucional(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+# ==============================================================================
+# ESTRUCTURA INVISIBLE DEL OBSERVATORIO DE LA JUSTICIA (Abib System)
+# ==============================================================================
+
+class AbogadoMatriculado(models.Model):
+    CIRCUNSCRIPCIONES = [
+        ('I', 'I - Capital'),
+        ('II', 'II - Goya'),
+        ('III', 'III - Curuzú Cuatiá'),
+        ('IV', 'IV - Paso de los Libres'),
+        ('V', 'V - Santo Tomé'),
+    ]
+    
+    nombre_completo = models.CharField(max_length=150, verbose_name="Nombre Completo")
+    matricula = models.CharField(max_length=50, unique=True, verbose_name="Número de Matrícula (Tomo/Folio)")
+    circunscripcion = models.CharField(max_length=5, choices=CIRCUNSCRIPCIONES, verbose_name="Circunscripción")
+    correo_electronico = models.EmailField(unique=True, verbose_name="Correo Electrónico")
+    
+    # Control de seguridad e histórico para la secretaria del Consejo
+    esta_validado = models.BooleanField(default=False, verbose_name="Cuenta Validada por Mail")
+    fecha_registro = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Registro")
+
+    class Meta:
+        verbose_name = "Abogado Registrado"
+        verbose_name_plural = "Observatorio - Padrón de Abogados"
+        ordering = ['-fecha_registro']
+
+    def __str__(self):
+        return f"{self.nombre_completo} - Mat: {self.matricula} ({self.get_circunscripcion_display()})"
+
+
+
+class VotoEncuesta(models.Model):
+    OPCIONES_CALIFICACION = [
+        ('A', 'Óptimo / Satisfactorio'),
+        ('B', 'Regular / Necesita Reformas'),
+        ('C', 'Deficiente / Colapso Institucional'),
+    ]
+    
+    # Campo para organizar por los semestres históricos que pidió la presidenta
+    periodo_semestral = models.CharField(max_length=30, verbose_name="Período (Ej: 2026-2S)")
+    circunscripcion_juzgado = models.CharField(max_length=5, verbose_name="Circunscripción del Juzgado")
+    fuero_afectado = models.CharField(max_length=50, verbose_name="Fuero con Mayor Retraso")
+    
+    # Guarda el poroto de la calificación general para armar el gráfico de torta
+    calificacion_global = models.CharField(max_length=1, choices=OPCIONES_CALIFICACION, verbose_name="Calificación del Juzgado")
+    fecha_voto = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Voto Anónimo del Observatorio"
+        verbose_name_plural = "Observatorio - Bolsa de Votos Anónimos"
+
+    def __str__(self):
+        return f"Voto {self.periodo_semestral} - Fuero: {self.fuero_afectado} ({self.get_calificacion_global_display()})"

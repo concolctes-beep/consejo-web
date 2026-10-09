@@ -38,3 +38,20 @@ class ReglamentoAdmin(admin.ModelAdmin):
 @admin.register(Institucional)
 class InstitucionalAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'fecha_actualizacion')
+
+
+from .models import AbogadoMatriculado
+
+@admin.register(AbogadoMatriculado)
+class AbogadoMatriculadoAdmin(admin.ModelAdmin):
+    # Columnas prolijas que va a ver la secretaria en su pantalla
+    list_display = ('nombre_completo', 'matricula', 'circunscripcion', 'correo_electronico', 'esta_validado', 'fecha_registro')
+    
+    # Filtros rápidos a la derecha para separar por ciudad o estado de cuenta
+    list_filter = ('circunscripcion', 'esta_validado', 'fecha_registro')
+    
+    # Buscador inteligente en tiempo real arriba de todo
+    search_fields = ('nombre_completo', 'matricula', 'correo_electronico')
+    
+    # Permite a la secretaria validar o congelar cuentas desde la lista sin entrar al registro
+    list_editable = ('esta_validado',)

@@ -5,7 +5,9 @@ from django.core.mail import send_mail
 
 def inicio(request):
     # 1. Buscamos las últimas 3 noticias publicadas
-    noticias = Noticia.objects.all()[:3]
+    # 1. Buscamos las últimas 3 noticias ordenadas de la más nueva a la más vieja
+    noticias = Noticia.objects.all().order_by('-fecha_publicacion')[:3]
+
     
     # 2. Buscamos todas las circunscripciones de Corrientes (Goya, Capital, etc.)
     circunscripciones = Circunscripcion.objects.all()

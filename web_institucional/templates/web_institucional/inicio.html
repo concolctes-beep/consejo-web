@@ -193,7 +193,7 @@
                 <div class="card h-100 bg-dark bg-opacity-25 border border-warning shadow-sm transition-all">
                     <!-- Si la noticia tiene foto, la muestra. Si no, pone un fondo azul plano -->
                     {% if noticia.foto_principal %}
-                    <img src="{{ noticia.foto_principal.url }}" class="card-img-top border-bottom border-warning" alt="{{ noticia.titulo }}" style="height: 200px; object-fit: cover;">
+                    <img src="{{ noticia.foto_principal.url }}" class="card-img-top border-bottom border-warning" alt="{{ noticia.titulo }}" style="height: 200px; object-fit: contain;">
                     {% else %}
                     <div class="d-flex align-items-center justify-content-center bg-opacity-50 border-bottom border-warning" style="height: 200px; background-color: #0d213a;">
                         <span class="font-serif-formal text-muted" style="font-size: 3rem;">CSCA</span>
